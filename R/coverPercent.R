@@ -1,3 +1,13 @@
+#'Computes coverage percentage of different land use classes from a raster image using buffers of different sizes.
+#'
+#' @param Raster A categorical raster layer object , with projected CRS
+#' @param surveySites Spatial points object with projected CRS. The first columm of its atribute table must contain the point identification
+#' @param bufferSizes size in meters of the buffer to be created around each survey site
+#'
+#' @return data frame
+#' @export
+#'
+#' @examples
 coverPercent <- function(Raster, surveySites, bufferSizes){
   # determinar o numero de pontos e a quantidade de buffers que serao criados
   nSites <- length(surveySites)
@@ -39,6 +49,6 @@ coverPercent <- function(Raster, surveySites, bufferSizes){
     }
   }
   return(landcover)
-
+}
 
 
