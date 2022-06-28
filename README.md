@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pixelstats is to compute landscape metrics from satellite images at the pixel level
+The goal of pixelstats is to compute landscape metrics from satellite images at the pixel level.
 
 ## Installation
 
