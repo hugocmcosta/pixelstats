@@ -2,20 +2,22 @@
 % Please edit documentation in R/coverPercent.R
 \name{coverPercent}
 \alias{coverPercent}
-\title{Computes coverage percentage of different land use classes from a raster image using buffers of different sizes.}
+\title{Computes coverage percentage of different land use classes from a raster image using moving windows.}
 \usage{
-coverPercent(Raster, surveySites, bufferSizes)
+coverPercent(landScape, landClass, windowSize, windowForm)
 }
 \arguments{
-\item{Raster}{A categorical raster layer object , with projected CRS}
+\item{landScape}{A categorical raster layer object}
 
-\item{surveySites}{Spatial points object with projected CRS. The first columm of its atribute table must contain the point identification}
+\item{landClass}{Landuse class for which coverage percentage will be calculated}
 
-\item{bufferSizes}{size in meters of the buffer to be created around each survey site}
+\item{windowSize}{size, in units of the landScape CRS, of the moving window to be created}
+
+\item{windowForm}{the type of moving window: "circle" , "Gauss", "rectangle"}
 }
 \value{
-data frame
+a SpatRaster image
 }
 \description{
-Computes coverage percentage of different land use classes from a raster image using buffers of different sizes.
+Computes coverage percentage of different land use classes from a raster image using moving windows.
 }
