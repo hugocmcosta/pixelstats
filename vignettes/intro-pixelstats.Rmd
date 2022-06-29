@@ -1,0 +1,76 @@
+---
+title: " An Introduction to pixelstats"
+author: "Hugo C. M. Costa"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+This is the introduction to pixelstats package.
+We use it to calculate spatial metrics from categorical classified satellite images at the pixel level, using moving windows approach.
+pixelstats was created as an exercise from Dr. Neander Heming class "Ciência Replicável e Construção de Pacotes no R"
+
+# How to install 
+
+`pixelstats` can be installed directly from package maintainer github.
+
+```{r}
+#install.packages("devtools")
+devtools::install_github("hugocmcosta/pixelstats")
+```
+
+# How to use 
+
+## Create an exemple dataset.
+
+`landscape` is a SpatRater file with a projected CRS , with 8 land use classes distribuited randomly.
+
+````{r}
+library(terra)
+
+landscape <- rast(ncol = 1000, nrow = 1000, 
+           xmin= 610859, xmax = 722056, ymin = 9447251, ymax = 9557602,
+           crs = "+proj=utm +zone=19 +units =m +datum=WGS84")
+
+terra::values(landscape) <- sample(x = c(1:8),
+                    size = terra::ncell(landscape), 
+                    replace = TRUE,
+                    prob = c(0.1, .25, .40,.07, .15,.01,.2,.6))
+
+levels(landscape) <- c(1:8)
+
+plot(landscape)
+
+````
+
+# coverPercent 
+
+`coverPercent` function calculates the percentage of a chosen land use class at the pixel level using a moving window approach. 
+The user is able to choose the size and the form of the window. The units provided by the user must follow the SpatRaster CRS. On example bellow we will calculate de percentage of forest (4) cover within a 500 meter circular moving window.
+
+````{r}
+
+library(pixelstats)
+
+forestCover <- coverPercent(landScape = landscape,
+                            landClass = 4,
+                            windowSize = 500,
+                            windowForm = "circle")
+
+plot(forestCover)
+
+````
+
+
+ 
+# Obrigado Neander e colegas!
